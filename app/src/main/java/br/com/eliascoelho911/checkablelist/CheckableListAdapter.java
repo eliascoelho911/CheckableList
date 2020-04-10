@@ -20,10 +20,19 @@ public abstract class CheckableListAdapter<T extends CheckableListViewHolder> ex
         CompoundButton compoundButton = holder.getCompoundButton();
         int adapterPosition = holder.getAdapterPosition();
         checkButton(compoundButton, isSelected(adapterPosition));
-        manipulateButtonList(holder, compoundButton, adapterPosition);
+        manipulateButtonList(holder, compoundButton);
     }
 
-    public void setChecked(CompoundButton compoundButton, boolean checked, int adapterPosition) {
+    public void move(@NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+        swap(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+    }
+
+    public void remove(int position) {
+        compoundButtonList.remove(position);
+        fixSelectedIndex(position);
+    }
+
+    public final void setChecked(CompoundButton compoundButton, boolean checked, int adapterPosition) {
         checkButton(compoundButton, checked);
         if (checked) {
             setSelectedIndex(adapterPosition);
@@ -32,7 +41,7 @@ public abstract class CheckableListAdapter<T extends CheckableListViewHolder> ex
         }
     }
 
-    public void setSelectedIndex(int selectedIndex) {
+    public final void setSelectedIndex(int selectedIndex) {
         try {
             if (!hasSelectedItem()) {
                 CheckableListAdapter.selectedIndex = selectedIndex;
@@ -43,6 +52,14 @@ public abstract class CheckableListAdapter<T extends CheckableListViewHolder> ex
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             CheckableListAdapter.selectedIndex = selectedIndex;
+        }
+    }
+
+    private void fixSelectedIndex(int position) {
+        if (selectedIndex == position) {
+            selectedIndex = ALL_UNSELECTED;
+        } else if (selectedIndex > position){
+            selectedIndex--;
         }
     }
 
@@ -59,10 +76,8 @@ public abstract class CheckableListAdapter<T extends CheckableListViewHolder> ex
         compoundButton.setChecked(checked);
     }
 
-    private void manipulateButtonList(@NonNull T holder, CompoundButton compoundButton, int adapterPosition) {
-        if (buttonHasAdded(compoundButton)) {
-            correctsPosition(compoundButton, adapterPosition);
-        } else {
+    private void manipulateButtonList(@NonNull T holder, CompoundButton compoundButton) {
+        if (!buttonHasAdded(compoundButton)) {
             add(holder.getAdapterPosition(), compoundButton);
         }
     }
@@ -75,8 +90,13 @@ public abstract class CheckableListAdapter<T extends CheckableListViewHolder> ex
         compoundButtonList.add(position, compoundButton);
     }
 
-    private void correctsPosition(CompoundButton compoundButton, int adapterPosition) {
-        Collections.swap(compoundButtonList, compoundButtonList.indexOf(compoundButton), adapterPosition);
+    private void swap(int currentPosition, int newPosition) {
+        Collections.swap(compoundButtonList, currentPosition, newPosition);
+        if (selectedIndex == currentPosition) {
+            selectedIndex = newPosition;
+        } else if (selectedIndex == newPosition) {
+            selectedIndex = currentPosition;
+        }
     }
 
     private boolean buttonHasAdded(CompoundButton compoundButton) {
