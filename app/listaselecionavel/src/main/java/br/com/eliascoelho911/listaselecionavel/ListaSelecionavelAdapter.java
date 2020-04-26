@@ -1,8 +1,8 @@
-package br.com.eliascoelho911.listaSelecionavel.lista;
+package br.com.eliascoelho911.listaselecionavel;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import br.com.eliascoelho911.listaSelecionavel.tipos.ListaSelecionavel;
+import br.com.eliascoelho911.listaselecionavel.tipos.ListaSelecionavel;
 
 public abstract class ListaSelecionavelAdapter<T extends ListaSelecionavelViewHolder> extends RecyclerView.Adapter<T> {
 

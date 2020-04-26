@@ -1,4 +1,4 @@
-package br.com.eliascoelho911.listaSelecionavel.tipos;
+package br.com.eliascoelho911.listaselecionavel.tipos;
 
 import java.util.List;
 

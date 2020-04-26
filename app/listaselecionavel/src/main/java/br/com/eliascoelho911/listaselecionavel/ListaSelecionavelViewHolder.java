@@ -1,4 +1,4 @@
-package br.com.eliascoelho911.listaSelecionavel.lista;
+package br.com.eliascoelho911.listaselecionavel;
 
 import android.view.View;
 import android.widget.CompoundButton;

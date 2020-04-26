@@ -1,11 +1,11 @@
-package br.com.eliascoelho911.listaSelecionavel.tipos;
+package br.com.eliascoelho911.listaselecionavel.tipos;
 
 import android.widget.CompoundButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.eliascoelho911.listaSelecionavel.lista.ListaSelecionavelViewHolder;
+import br.com.eliascoelho911.listaselecionavel.ListaSelecionavelViewHolder;
 
 public abstract class ListaSelecionavel {
     private List<ListaSelecionavelViewHolder> viewHolders = new ArrayList<>();
