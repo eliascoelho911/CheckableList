@@ -1,4 +1,4 @@
-package br.com.eliascoelho911.checkablelist;
+package br.com.eliascoelho911.listaSelecionavel.lista;
 
 import android.view.View;
 import android.widget.CompoundButton;
@@ -6,9 +6,9 @@ import android.widget.CompoundButton;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class CheckableListViewHolder extends RecyclerView.ViewHolder {
+public abstract class ListaSelecionavelViewHolder extends RecyclerView.ViewHolder {
 
-    public CheckableListViewHolder(@NonNull View itemView) {
+    public ListaSelecionavelViewHolder(@NonNull View itemView) {
         super(itemView);
     }
 
